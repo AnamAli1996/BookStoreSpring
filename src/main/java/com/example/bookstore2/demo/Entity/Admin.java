@@ -1,4 +1,4 @@
 package com.example.bookstore2.demo.Entity;
 
-public class Customer {
+public class Admin {
 }
