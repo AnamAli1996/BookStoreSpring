@@ -1,10 +1,7 @@
 package com.example.bookstore2.demo.Controller;
 
-import com.example.bookstore2.demo.Entity.Book;
 import com.example.bookstore2.demo.Entity.Customer;
-import com.example.bookstore2.demo.Repository.BookRepository;
 import com.example.bookstore2.demo.Repository.CustomerRepository;
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +12,8 @@ import org.springframework.web.servlet.ModelAndView;
 public class CustomerController {
     @Autowired
     private CustomerRepository customerRepository;
+
+
 
     @GetMapping("/customer/new")
     public ModelAndView customerForm() {
@@ -44,6 +43,8 @@ public class CustomerController {
     @PostMapping("/customer/login")
     public String customerLogin(@ModelAttribute Customer customer) {
         Customer newCustomer = customerRepository.findByEmailAndPassword(customer.getEmail(), customer.getPassword());
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("customer", customer);
         if(newCustomer != null)
             return "Welcome";
         else

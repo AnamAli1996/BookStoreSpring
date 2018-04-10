@@ -5,7 +5,93 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-<h1>Result</h1>
-<p th:text="'Hello: ' + ${customer.email}" />
+<style>
+    table {
+        border-spacing: 0;
+        width: 100%;
+        border: 1px solid #ddd;
+    }
+
+    th {
+        cursor: pointer;
+    }
+
+    th, td {
+        text-align: left;
+        padding: 16px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f2f2f2
+    }
+</style>
+<script>
+    function sortTable(n) {
+        var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+        table = document.getElementById("myTable");
+        switching = true;
+        dir = "asc";
+        while (switching) {
+            switching = false;
+            rows = table.getElementsByTagName("TR");
+            for (i = 1; i < (rows.length - 1); i++) {
+                shouldSwitch = false;
+                x = rows[i].getElementsByTagName("TD")[n];
+                y = rows[i + 1].getElementsByTagName("TD")[n];
+                if (dir == "asc") {
+                    if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                        shouldSwitch= true;
+                        break;
+                    }
+                } else if (dir == "desc") {
+                    if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                        shouldSwitch= true;
+                        break;
+                    }
+                }
+            }
+            if (shouldSwitch) {
+                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                switching = true;
+                switchcount ++;
+            } else {
+                if (switchcount == 0 && dir == "asc") {
+                    dir = "desc";
+                    switching = true;
+                }
+            }
+        }
+    }
+</script>
+<h1> Search Books </h1>
+<form action="#" th:action="@{/book/search}" th:object="${search}">
+    <label for="search_input">Search By Author or Title:</label> <input name="search"
+                                                     id="search">
+    </input>
+        <h2>Search Results</h2>
+        <table id="myTable">
+            <thead>
+            <tr>
+                <th onclick="sortTable(0)">ID</th>
+                <th onclick="sortTable(1)">Title</th>
+                <th onclick="sortTable(2)">Author</th>
+                <th onclick="sortTable(3)">Category</th>
+                <th onclick="sortTable(4)">Price</th>
+                <th>Image</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="search : ${search}">
+                <td th:text="${search.id}">Text ...</td>
+                <td th:text="${search.title}">Text ...</td>
+                <td th:text="${search.author}">Text ...</td>
+                <td th:text="${search.category}">Text...</td>
+                <td th:text="${search.price}">Text..</td>
+                <td th:text="${search.image}">Text..</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</form>
 </body>
 </html>

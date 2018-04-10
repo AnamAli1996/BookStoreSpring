@@ -1,5 +1,7 @@
 package com.example.bookstore2.demo.Entity;
 
+import com.example.bookstore2.demo.Builder;
+
 import javax.persistence.*;
 
 @Entity
@@ -14,18 +16,25 @@ public class Book{
     private double price;
     private String category;
     private String image;
+    private int quantity;
 
     public Book(){
 
     }
 
-    public Book(String title, String author, double price, String category, String image){
-        super();
-        this.title = title;
-        this.author = author;
-        this.price = price;
-        this.category = category;
-        this.image = image;
+    public Book(Builder builder){
+        setId(builder.id);
+        setTitle(builder.title);
+        setAuthor(builder.author);
+        setCategory(builder.category);
+        setPrice(builder.price);
+        setImage(builder.image);
+        setQuantity(builder.quantity);
+
+    }
+
+    public static Builder newBook(){
+        return new Builder();
     }
 
     public int getId() {
@@ -75,5 +84,15 @@ public class Book{
     public void setImage(String image) {
         this.image = image;
     }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
 }
+
+
 

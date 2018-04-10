@@ -1,10 +1,23 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.js"></script>
     <title>Getting Started: Serving Web Content</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 <body>
-<p th:text="'Hello, ' + ${name} + '!'" />
+<h2 class="ui center aligned icon header">
+    <i class="book icon"></i>
+    Welcome To BookStore
+</h2>
+<div class="ui four column doubling stackable grid container">
+    <div class="column">
+        <p><button class="ui inverted purple button" onClick="location.href='/customer/login'">Login</button></p>
+        <p> or </p>
+        <p><button class="ui inverted purple button" onClick="location.href='/customer/new'">Register</button></p>
+    </div>
+</div>
 </body>
 </html>
