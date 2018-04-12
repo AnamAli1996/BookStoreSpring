@@ -1,6 +1,7 @@
 package com.example.bookstore2.demo.Entity;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -21,6 +22,7 @@ public class User {
 
     @ManyToMany
     private Set<Role> roles;
+
 
     public User(){
 
@@ -128,4 +130,6 @@ public class User {
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
+
+
 }

@@ -64,7 +64,7 @@
     }
 </script>
 <h1>Logged in User: <b th:inline="text"> <div class="panel-heading">
-    <span th:utext="${userName}"></span>
+    <p th:text="${session.loggedInUser}" th:unless="${session == null}">[...]</p>
 </div> </b> </h1>
 <form th:action="@{/appLogout}" method="POST">
     <input type="submit" value="Logout"/>
@@ -96,6 +96,11 @@
                 <td th:text="${search.image}">Text..</td>
                 <td><a th:href="@{'/shoppingCart/addBook/{id}'(id=${search.id})}" class="col-md-1" th:if="${search.quantity}>0">
                     <button type="button" class="btn btn-primary" th:text="Buy">Buy</button>
+                <td><a th:href="@{'/book/review/{id}'(id=${search.id})}" class="col-md-1">
+                    <button type="button" class="btn btn-primary">Write A review</button>
+                </a></td>
+                <td><a th:href="@{'/book/ViewReview/{id}'(id=${search.id})}" class="col-md-1">
+                    <button type="button" class="btn btn-primary">View Reviews</button>
                 </a></td>
             </tr>
             </tbody>

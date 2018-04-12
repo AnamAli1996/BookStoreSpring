@@ -1,9 +1,11 @@
 package com.example.bookstore2.demo.Entity;
 
 import com.example.bookstore2.demo.Builder;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.List;
 
 @Entity
 public class Book{
@@ -18,6 +20,9 @@ public class Book{
     private String category;
     private String image;
     private int quantity;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    List<Review> review;
 
     public Book(){
 
@@ -97,7 +102,13 @@ public class Book{
         this.price = unitPrice;
     }
 
+    public List<Review> getReview() {
+        return review;
+    }
 
+    public void setReview(List<Review> review) {
+        this.review = review;
+    }
 }
 
 

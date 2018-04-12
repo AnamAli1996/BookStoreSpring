@@ -7,6 +7,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpSession;
+
 @Controller
 public class CustomerController {
     @Autowired
@@ -40,7 +43,8 @@ public class CustomerController {
     }
 
     @PostMapping("/customer/login")
-    public String customerLogin(@ModelAttribute User customer) {
+    public String customerLogin(@ModelAttribute User customer, HttpSession session) {
+        session.setAttribute("loggedInUser", customer.getEmail());
         User newCustomer = customerRepository.findByEmailAndPassword(customer.getEmail(), customer.getPassword());
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("customer", customer);

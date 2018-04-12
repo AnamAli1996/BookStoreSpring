@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    .starRating:not(old){
+        display        : inline-block;
+        width          : 7.5em;
+        height         : 1.5em;
+        overflow       : hidden;
+        vertical-align : bottom;
+    }
+
+    .starRating:not(old) > input{
+        margin-right : -100%;
+        opacity      : 0;
+    }
+
+    .starRating:not(old) > label{
+        display         : block;
+        float           : right;
+        position        : relative;
+        background      : url('static/star-off.svg');
+        background-size : contain;
+    }
+
+    .starRating:not(old) > label:before{
+        content         : '';
+        display         : block;
+        width           : 1.5em;
+        height          : 1.5em;
+        background      : url('static/star-on.svg');
+        background-size : contain;
+        opacity         : 0;
+        transition      : opacity 0.2s linear;
+    }
+
+    .starRating:not(old) > label:hover:before,
+    .starRating:not(old) > label:hover ~ label:before,
+    .starRating:not(:hover) > :checked ~ label:before{
+        opacity : 1;
+    }
+</style>
+<body>
+
+<h1>Logged in User: <b th:inline="text"> <div class="panel-heading">
+    <p th:text="${session.loggedInUser}" th:unless="${session == null}">[...]</p>
+</div> </b> </h1>
+<form th:action="@{/appLogout}" method="POST">
+    <input type="submit" value="Logout"/>
+</form>
+
+<form action="/" th:action="@{/book/addReview}" th:object="${book}" method="post">
+
+    <p> Book Title</p>
+    <p th:text="${book.title}">Text ...</p>
+    <p> Book Author</p>
+    <p th:text="${book.author}">Text ...</p>
+    <p> Book Category</p>
+    <p th:text="${book.category}">Text...</p>
+    <p> Book Price</p>
+    <p th:text="${book.price}">Text..</p>
+</form>
+
+<form action="#" th:action="@{/book/addReview}" th:object="${review}" method="post">
+
+
+    <h1> Write a review </h1>
+    <input type="text" id="comment" name="comment" th:field="*{comment}"  th:placeholder="Comment"
+           class="form-control" /> <br/>
+    <p>
+        Rating:
+    <div class="input-group">
+        <input type="radio" name="rating" value="1"> 1</input>
+        <input type="radio" name="rating" value="2"> 2</input>
+        <input type="radio" name="rating" value="3"> 3</input>
+        <input type="radio" name="rating" value="3"> 4</input>
+        <input type="radio" name="rating" value="3"> 5</input>
+    </div>
+
+
+    </p>
+        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+</form>
+</body>
+</html>
