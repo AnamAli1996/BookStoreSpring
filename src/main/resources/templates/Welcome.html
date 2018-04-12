@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>Getting Started: Handling Form Submission</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -63,6 +63,12 @@
         }
     }
 </script>
+<h1>Logged in User: <b th:inline="text"> <div class="panel-heading">
+    <span th:utext="${userName}"></span>
+</div> </b> </h1>
+<form th:action="@{/appLogout}" method="POST">
+    <input type="submit" value="Logout"/>
+</form>
 <h1> Search Books </h1>
 <form action="#" th:action="@{/book/search}" th:object="${search}">
     <label for="search_input">Search By Author or Title:</label> <input name="search"
@@ -88,6 +94,9 @@
                 <td th:text="${search.category}">Text...</td>
                 <td th:text="${search.price}">Text..</td>
                 <td th:text="${search.image}">Text..</td>
+                <td><a th:href="@{'/shoppingCart/addBook/{id}'(id=${search.id})}" class="col-md-1" th:if="${search.quantity}>0">
+                    <button type="button" class="btn btn-primary" th:text="Buy">Buy</button>
+                </a></td>
             </tr>
             </tbody>
         </table>

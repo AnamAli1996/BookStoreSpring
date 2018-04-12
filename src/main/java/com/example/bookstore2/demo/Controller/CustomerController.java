@@ -1,6 +1,5 @@
 package com.example.bookstore2.demo.Controller;
-
-import com.example.bookstore2.demo.Entity.Customer;
+import com.example.bookstore2.demo.Entity.User;
 import com.example.bookstore2.demo.Repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,7 +17,7 @@ public class CustomerController {
     @GetMapping("/customer/new")
     public ModelAndView customerForm() {
         ModelAndView modelAndView = new ModelAndView();
-        Customer customer = new Customer();
+        User customer = new User();
         modelAndView.addObject("customer", customer);
         modelAndView.setViewName("CustomerRegisterForm");
 
@@ -26,23 +25,23 @@ public class CustomerController {
     }
 
     @PostMapping("/customer/new")
-    public String customerSubmit(@ModelAttribute Customer customer) {
+    public String customerSubmit(@ModelAttribute User customer) {
         customerRepository.save(customer);
-        return "resultCustomer";
+        return "CustomerLoginForm";
     }
 
     @GetMapping("customer/login")
     public ModelAndView customerLogin() {
         ModelAndView modelAndView = new ModelAndView();
-        Customer customer = new Customer();
+        User customer = new User();
         modelAndView.addObject("customer", customer);
         modelAndView.setViewName("CustomerLoginForm");
         return modelAndView;
     }
 
     @PostMapping("/customer/login")
-    public String customerLogin(@ModelAttribute Customer customer) {
-        Customer newCustomer = customerRepository.findByEmailAndPassword(customer.getEmail(), customer.getPassword());
+    public String customerLogin(@ModelAttribute User customer) {
+        User newCustomer = customerRepository.findByEmailAndPassword(customer.getEmail(), customer.getPassword());
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("customer", customer);
         if(newCustomer != null)

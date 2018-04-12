@@ -2,11 +2,13 @@ package com.example.bookstore2.demo;
 
 import com.example.bookstore2.demo.Entity.Book;
 
+import java.math.BigDecimal;
+
 public final class Builder {
     public int id;
     public String title;
     public String author, category, image;
-    public double price;
+    public BigDecimal price;
     public int quantity;
 
     public Builder(){
@@ -35,6 +37,11 @@ public final class Builder {
         this.image = image;
         return this;
 
+    }
+
+    public Builder price(BigDecimal price){
+        this.price = price;
+        return this;
     }
 
     public Book build(){

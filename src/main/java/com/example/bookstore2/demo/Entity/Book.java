@@ -3,6 +3,7 @@ package com.example.bookstore2.demo.Entity;
 import com.example.bookstore2.demo.Builder;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Entity
 public class Book{
@@ -13,7 +14,7 @@ public class Book{
 
     private String title;
     private String author;
-    private double price;
+    private BigDecimal price;
     private String category;
     private String image;
     private int quantity;
@@ -49,9 +50,6 @@ public class Book{
         return author;
     }
 
-    public double getPrice() {
-        return price;
-    }
 
     public String getCategory() {
         return category;
@@ -73,9 +71,7 @@ public class Book{
         this.author = author;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
-    }
+
 
     public void setCategory(String category) {
         this.category = category;
@@ -92,6 +88,16 @@ public class Book{
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
+
+    public BigDecimal getPrice(){
+        return price;
+    }
+
+    public void setPrice (BigDecimal unitPrice){
+        this.price = unitPrice;
+    }
+
+
 }
 
 

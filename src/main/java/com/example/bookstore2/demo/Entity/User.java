@@ -1,9 +1,10 @@
 package com.example.bookstore2.demo.Entity;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
-public class Customer {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -16,13 +17,16 @@ public class Customer {
     private String country;
     private String email;
     private String password;
-    private String type;
 
-    public Customer(){
+
+    @ManyToMany
+    private Set<Role> roles;
+
+    public User(){
 
     }
 
-    public Customer(String firstName, String lastName, String phoneNumber, String paymentMethod, String address, String city, String country, String email, String password) {
+    public User(String firstName, String lastName, String phoneNumber, String paymentMethod, String address, String city, String country, String email, String password) {
         super();
         this.firstName = firstName;
         this.lastName = lastName;
@@ -33,7 +37,7 @@ public class Customer {
         this.country = country;
         this.email = email;
         this.password = password;
-        this.setType("Customer");
+
     }
 
     public int getId() {
@@ -56,13 +60,7 @@ public class Customer {
         return lastName;
     }
 
-    public String getType(){
-        return type;
-    }
 
-    public void setType(String type){
-        this.type = type;
-    }
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
@@ -121,5 +119,13 @@ public class Customer {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 }
