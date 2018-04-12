@@ -1,12 +1,13 @@
 package com.example.bookstore2.demo.Controller;
 
-import com.example.bookstore2.demo.Entity.Book;
-import com.example.bookstore2.demo.Entity.Cart;
+import com.example.bookstore2.demo.Entity.*;
 import com.example.bookstore2.demo.Repository.BookRepository;
+import com.example.bookstore2.demo.Repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.jws.WebParam;
@@ -22,6 +23,8 @@ public class ShoppingCartController {
     @Autowired
     BookRepository bookRepository;
 
+    @Autowired
+    CustomerRepository customerRepository;
 
     @GetMapping("/shoppingCart/addBook/{id}")
     public ModelAndView addBookToCart(@PathVariable("id") int bookId, HttpSession session) {
@@ -63,4 +66,10 @@ public class ShoppingCartController {
 
     }
 
+    @PostMapping("shoppingCart/pay")
+    public ModelAndView payForCart(HttpSession session){
+        ModelAndView modelAndView = new ModelAndView("paymentSuccess");
+        return modelAndView;
+
+    }
 }

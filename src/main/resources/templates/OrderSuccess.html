@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -6,5 +8,16 @@
 </head>
 <body>
 <p> Order successful </p>
+<h1>Payment</h1>
+<form th:action="@{/customer/login}" method="get">
+    <button class="btn btn-md btn-warning btn-block" type="Submit">Go To Login Page</button>
+</form>
+<form action="#" th:action="@{/shoppingCart/pay}" th:object="${card}" method="post">
+    <p>Name<input type="text" th:field="*{NameOnCard}" /></p>
+    <p>Card Number<input type="text" th:field="*{cardNumber}" /></p>
+    <p>Expiry Date <input type="text" th:field="*{expiryDate}" /></p>
+    <p>CVC <input type="text" th:field="*{CVC}" /></p>
+    <button class="btn btn-md btn-warning btn-block" type="Submit">Pay Now</button>
+</form>
 </body>
 </html>

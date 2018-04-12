@@ -1,9 +1,8 @@
 package com.example.bookstore2.demo.Controller;
 
-import com.example.bookstore2.demo.Entity.Cart;
-import com.example.bookstore2.demo.Entity.Order;
-import com.example.bookstore2.demo.Entity.OrderDetail;
+import com.example.bookstore2.demo.Entity.*;
 import com.example.bookstore2.demo.OrderDao;
+import com.example.bookstore2.demo.Repository.CustomerRepository;
 import com.example.bookstore2.demo.Repository.OrderDetailsRepository;
 import com.example.bookstore2.demo.Repository.OrderRepository;
 import com.example.bookstore2.demo.Utils.CartUtils;
@@ -30,6 +29,9 @@ public class OrderController {
     @Autowired
     OrderDetailsRepository orderDetailsRepository;
 
+    @Autowired
+    CustomerRepository customerRepository;
+
     @RequestMapping(value="/order/create")
 
         public ModelAndView createOrder(@ModelAttribute("order")Order order, HttpSession session){
@@ -53,6 +55,20 @@ public class OrderController {
         order.setStatus(1);
         order.setTotal(CartUtils.getTotal(cartList));
         order.setEmail("");
+
+        String email = (String) session.getAttribute("loggedInUser");
+        Card card;
+
+
+        User u =  customerRepository.findByEmail(email);
+
+        if(u.getPaymentMethod().equals("Credit Card")){
+            card = new CreditCard();
+        }else
+            card = new DebitCard();
+
+        mav.addObject("card", card);
+
 
         for(OrderDetail orderDetail: detailList){
             orderDetailsRepository.save(orderDetail);
