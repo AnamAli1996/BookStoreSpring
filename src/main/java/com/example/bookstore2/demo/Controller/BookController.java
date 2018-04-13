@@ -1,13 +1,11 @@
 package com.example.bookstore2.demo.Controller;
 
 import com.example.bookstore2.demo.Entity.Book;
-import com.example.bookstore2.demo.Entity.Cart;
 import com.example.bookstore2.demo.Entity.Review;
 import com.example.bookstore2.demo.Entity.User;
 import com.example.bookstore2.demo.Repository.BookRepository;
-import com.example.bookstore2.demo.Repository.CustomerRepository;
+import com.example.bookstore2.demo.Repository.UserRepository;
 import com.example.bookstore2.demo.Repository.ReviewRepository;
-import com.sun.org.apache.regexp.internal.RE;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -28,7 +25,7 @@ public class BookController {
     private ReviewRepository reviewRepository;
 
     @Autowired
-    private CustomerRepository customerRepository;
+    private UserRepository userRepository;
 
     @GetMapping("/book/new")
     public ModelAndView bookForm()
@@ -91,7 +88,7 @@ public class BookController {
         Book book = bookRepository.findById(bookId);
         String email = (String) session.getAttribute("loggedInUser");
 
-        User user = customerRepository.findByEmail(email);
+        User user = userRepository.findByEmail(email);
         review.setUser(user);
         book.getReview().add(review);
         bookRepository.save(book);

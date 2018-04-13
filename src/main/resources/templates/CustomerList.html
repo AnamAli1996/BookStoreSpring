@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <title>Title</title>
+</head>
+<style>
+    table {
+        border-spacing: 0;
+        width: 100%;
+        border: 1px solid #ddd;
+    }
+
+    th {
+        cursor: pointer;
+    }
+
+    th, td {
+        text-align: left;
+        padding: 16px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f2f2f2
+    }
+</style>
+
+<script>
+    function sortTable(n) {
+        var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+        table = document.getElementById("myTable");
+        switching = true;
+        dir = "asc";
+        while (switching) {
+            switching = false;
+            rows = table.getElementsByTagName("TR");
+            for (i = 1; i < (rows.length - 1); i++) {
+                shouldSwitch = false;
+                x = rows[i].getElementsByTagName("TD")[n];
+                y = rows[i + 1].getElementsByTagName("TD")[n];
+                if (dir == "asc") {
+                    if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                        shouldSwitch= true;
+                        break;
+                    }
+                } else if (dir == "desc") {
+                    if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                        shouldSwitch= true;
+                        break;
+                    }
+                }
+            }
+            if (shouldSwitch) {
+                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                switching = true;
+                switchcount ++;
+            } else {
+                if (switchcount == 0 && dir == "asc") {
+                    dir = "desc";
+                    switching = true;
+                }
+            }
+        }
+    }
+</script>
+<body>
+<h1> All the Customers in the database!</h1>
+<table id="myTable">
+    <thead>
+    <tr>
+        <th onclick="sortTable(0)">First Name</th>
+        <th onclick="sortTable(1)">Last Name</th>
+        <th onclick="sortTable(2)">Payment Method</th>
+        <th onclick="sortTable(3)">Phone Number</th>
+        <th onclick="sortTable(4)">Address</th>
+        <th onclick="sortTable(5)">Email</th>
+        <th>Image</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    <tr th:each="customer : ${customers}">
+        <td th:text="${customer.firstName}">Text ...</td>
+        <td th:text="${customer.lastName}">Text ...</td>
+        <td th:text="${customer.paymentMethod}">Text ...</td>
+        <td th:text="${customer.phoneNumber}">Text...</td>
+        <td th:text="${customer.address}">Text..</td>
+        <td th:text="${customer.email}">Text..</td>
+        <td><a th:href="@{'/admin/viewOrders/{id}'(id=${customer.id})}" class="col-md-1">
+            <button type="button" class="btn btn-primary" th:text="Edit">View Purchase History</button></a></td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

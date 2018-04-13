@@ -2,7 +2,7 @@ package com.example.bookstore2.demo.Controller;
 
 import com.example.bookstore2.demo.Entity.*;
 import com.example.bookstore2.demo.Repository.BookRepository;
-import com.example.bookstore2.demo.Repository.CustomerRepository;
+import com.example.bookstore2.demo.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.jws.WebParam;
 import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -24,7 +23,7 @@ public class ShoppingCartController {
     BookRepository bookRepository;
 
     @Autowired
-    CustomerRepository customerRepository;
+    UserRepository userRepository;
 
     @GetMapping("/shoppingCart/addBook/{id}")
     public ModelAndView addBookToCart(@PathVariable("id") int bookId, HttpSession session) {

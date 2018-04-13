@@ -1,0 +1,22 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<head>
+    <title>Getting Started: Handling Form Submission</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1>Form</h1>
+<form action="#" th:action="@{'/admin/EditBook/{id}'(id=${book.id})}" th:object="${book}" method="post">
+    <p>Title<input type="text" th:value="*{title}" th:field="*{title}" /></p>
+    <p>Author <input type="text" th:value="*{author}" th:field="*{author}" /></p>
+    <p>Category <input type="text" th:value="*{category}" th:field="*{category}" /></p>
+    <p>Price<input type="text" th:value="*{price}" th:field="*{price}" /></p>
+    <p>Image <input type="text" th:value="*{image}" th:field="*{image}" /></p>
+    <p>Quantity <input type="text" th:value="*{quantity}" th:field="*{quantity}" /></p>
+    <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+</form>
+</body>
+</html>

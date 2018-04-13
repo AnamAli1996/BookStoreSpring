@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <meta charset="UTF-8">
+    <title>Admin</title>
+</head>
+
+
+<body>
+<h1> Admin's home </h1>
+<form th:action="@{/admin/book/allbooks}" method="GET">
+    <input type="submit" value="View All Books"/>
+</form>
+
+<br />
+
+<form th:action="@{/book/new}" method="GET">
+    <input type="submit" value="Add new Book"/>
+</form>
+
+<br />
+
+<form th:action="@{/book/search}" method="GET">
+    <input type="submit" value="Search Books "/>
+</form>
+
+<br />
+
+<form th:action="@{/admin/allcustomers}" method="GET">
+    <input type="submit" value="View Customers"/>
+</form>
+
+
+</body>
+</html>

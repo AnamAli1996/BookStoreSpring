@@ -24,6 +24,7 @@ public class Book{
     @ManyToMany(cascade = CascadeType.ALL)
     List<Review> review;
 
+
     public Book(){
 
     }
@@ -109,6 +110,7 @@ public class Book{
     public void setReview(List<Review> review) {
         this.review = review;
     }
+
 }
 
 

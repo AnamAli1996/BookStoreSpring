@@ -18,17 +18,16 @@ public class User {
     private String country;
     private String email;
     private String password;
+    private String role;
 
-
-    @ManyToMany
-    private Set<Role> roles;
-
+    @OneToMany
+    List<Orders> orders;
 
     public User(){
 
     }
 
-    public User(String firstName, String lastName, String phoneNumber, String paymentMethod, String address, String city, String country, String email, String password) {
+    public User(String firstName, String lastName, String phoneNumber, String paymentMethod, String address, String city, String country, String email, String password, String role) {
         super();
         this.firstName = firstName;
         this.lastName = lastName;
@@ -39,7 +38,7 @@ public class User {
         this.country = country;
         this.email = email;
         this.password = password;
-
+        this.role = role;
     }
 
     public int getId() {
@@ -123,13 +122,19 @@ public class User {
         this.password = password;
     }
 
-    public Set<Role> getRoles() {
-        return roles;
+    public void setRole(String role) {
+        this.role = role;
     }
 
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
+    public String getRole() {
+        return role;
     }
 
+    public void setOrders(List<Orders> orders) {
+        this.orders = orders;
+    }
 
+    public List<Orders> getOrders() {
+        return orders;
+    }
 }
