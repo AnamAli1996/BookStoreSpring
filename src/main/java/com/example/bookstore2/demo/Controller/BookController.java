@@ -6,6 +6,10 @@ import com.example.bookstore2.demo.Entity.User;
 import com.example.bookstore2.demo.Repository.BookRepository;
 import com.example.bookstore2.demo.Repository.UserRepository;
 import com.example.bookstore2.demo.Repository.ReviewRepository;
+import com.example.bookstore2.demo.Strategy.Context;
+import com.example.bookstore2.demo.Strategy.SearchByAuthor;
+import com.example.bookstore2.demo.Strategy.SearchByCategory;
+import com.example.bookstore2.demo.Strategy.SearchByTitle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -45,12 +50,26 @@ public class BookController {
     }
 
     @RequestMapping(value = "/book/search", method = RequestMethod.GET)
-    public String search(@RequestParam(value = "search", required = false) String q, Model model){
-        List<Book> searchResults;
-        searchResults = bookRepository.findByTitleOrAuthor(q, q);
-        if(searchResults.size() == 0){
-            searchResults = bookRepository.findByCategory(q);
-        }
+    public String search(@RequestParam(value = "search", required = false) String q,
+                         @RequestParam(value = "testOrder") String searchOptions,
+                         Model model){
+        List<Book> searchResults = new ArrayList<>();
+
+        Context context;
+        if(searchOptions.equalsIgnoreCase("Category")){
+            context = new Context(new SearchByCategory());
+            searchResults = context.findBooks(bookRepository,q);
+        }else
+            if(searchOptions.equalsIgnoreCase("Author")){
+                context = new Context(new SearchByAuthor());
+                searchResults = context.findBooks(bookRepository,q);
+            }
+            else
+                if(searchOptions.equalsIgnoreCase("Title")){
+                    context = new Context(new SearchByTitle());
+                    searchResults = context.findBooks(bookRepository,                   q);
+                }
+
 
         model.addAttribute("search", searchResults);
         return "Welcome";

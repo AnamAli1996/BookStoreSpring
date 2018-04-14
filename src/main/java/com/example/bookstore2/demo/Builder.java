@@ -44,6 +44,11 @@ public final class Builder {
         return this;
     }
 
+    public Builder quantity(int quantity){
+        this.quantity = quantity;
+        return this;
+    }
+
     public Book build(){
         return new Book(this);
     }
