@@ -41,7 +41,14 @@
 
     <div class="form-group">
         <label>Payment Methods </label>
-        <input type="text" class="form-control" th:field="*{paymentMethod}"/></p>
+        <label class="custom-control custom-radio">
+            <input type="radio" name="paymentMethod" value="CreditCard">Credit Card</input>
+            <span class="custom-control-indicator"></span>
+        </label>
+        <label class="custom-control custom-radio">
+            <input type="radio" name="paymentMethod" value="DebitCard">Debit Card</input>
+
+        </label>
     </div>
 
     <div class="form-group">

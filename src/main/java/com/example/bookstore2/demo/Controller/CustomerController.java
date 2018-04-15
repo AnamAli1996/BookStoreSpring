@@ -1,8 +1,5 @@
 package com.example.bookstore2.demo.Controller;
-import com.example.bookstore2.demo.DAO.SearchOptionsDAO;
 import com.example.bookstore2.demo.Entity.Role;
-import com.example.bookstore2.demo.Entity.SearchOptions;
-import com.example.bookstore2.demo.Entity.SearchPicked;
 import com.example.bookstore2.demo.Entity.User;
 import com.example.bookstore2.demo.Repository.UserRepository;
 import com.example.bookstore2.demo.Repository.RoleRepository;
@@ -14,7 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -25,7 +21,6 @@ public class CustomerController {
     @Autowired
     RoleRepository roleRepository;
 
-    SearchOptionsDAO searchOptionsDAO;
     @GetMapping("/customer/new")
     public ModelAndView customerForm() {
         ModelAndView modelAndView = new ModelAndView();
@@ -59,11 +54,8 @@ public class CustomerController {
     public String customerLogin(@ModelAttribute User customer, HttpSession session) {
         session.setAttribute("loggedInUser", customer.getEmail());
         User newCustomer = userRepository.findByEmailAndPassword(customer.getEmail(), customer.getPassword());
-        List<SearchOptions> searchOptions = SearchOptionsDAO.getOptions();
+
         ModelAndView modelAndView = new ModelAndView();
-        SearchPicked searchPicked = new SearchPicked();
-        modelAndView.addObject("searchPicked", searchPicked);
-        modelAndView.addObject("searchList", searchOptions);
         modelAndView.addObject("customer", customer);
         if(newCustomer != null) {
             if (newCustomer.getRole().equalsIgnoreCase("CUSTOMER")) {
@@ -73,5 +65,12 @@ public class CustomerController {
             }
         } else
             return "CustomerLoginForm";
+    }
+
+    @PostMapping("customer/logout")
+    public ModelAndView logout(HttpSession session){
+        session.removeAttribute("loggedInUser");
+        ModelAndView modelAndView = new ModelAndView("greetings");
+        return modelAndView;
     }
 }

@@ -45,6 +45,8 @@ public class BookController {
 
     @PostMapping("/book/new")
     public String bookSubmit(@ModelAttribute Book book) {
+        String image = book.getImage();
+        book.setImage("/static/" + image);
         bookRepository.save(book);
         return "result";
     }
